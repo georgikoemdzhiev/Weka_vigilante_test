@@ -7,14 +7,14 @@ public class Point implements Comparable<Point> {
     /**
      * The time instant
      */
-    private double time;
+    private long time;
 
     /**
      * The value of the variable of interest at  the given time
      */
     private double value;
 
-    public Point(double time, double value) {
+    public Point(long time, double value) {
         this.time = time;
         this.value = value;
     }
@@ -23,7 +23,7 @@ public class Point implements Comparable<Point> {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(long time) {
         this.time = time;
     }
 

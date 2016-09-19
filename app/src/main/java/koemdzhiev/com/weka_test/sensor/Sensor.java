@@ -1,0 +1,25 @@
+package koemdzhiev.com.weka_test.sensor;
+
+import java.util.Observable;
+
+/**
+ * Created by Georgi on 9/19/2016.
+ */
+public abstract class Sensor extends Observable implements Runnable {
+
+    public void Sense() {
+
+    }
+
+    public void Connect() {
+
+    }
+
+    public void readData() {
+
+    }
+
+    public void finalize() {
+
+    }
+}
