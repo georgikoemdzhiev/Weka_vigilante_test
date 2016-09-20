@@ -8,12 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import koemdzhiev.com.weka_test.common.data.Point;
 import koemdzhiev.com.weka_test.common.data.TimeSeries;
 import koemdzhiev.com.weka_test.common.data.TimeWindow;
 import koemdzhiev.com.weka_test.common.feature.FeatureSet;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
+import weka.core.converters.ArffLoader;
+import weka.core.converters.ConverterUtils;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -43,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.activityLabel = "TEST";
+        this.activityLabel = "walking";
         this.accXSeries = new TimeSeries(activityLabel, "accX_");
         this.accYSeries = new TimeSeries(activityLabel, "accY_");
         this.accZSeries = new TimeSeries(activityLabel, "accZ_");
@@ -51,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        this.instanceHeader = getInstanceHeader();
     }
 
     @Override
@@ -77,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // use the classifier to classify the instance
         Log.d(TAG,"issueTimeWindow method called" + String.format("XarraySize: %d YarraySize: %d ZarraySize: %d",accXSeries.size(),accYSeries.size(),accZSeries.size()));
         FeatureSet featureSet = new FeatureSet(window);
-        Log.d(TAG,"FeatureSet.toInstance: " +  featureSet.toString());
+        featureSet.setActivityLabel(activityLabel);
+        Log.d(TAG,"FeatureSet.toInstance: " +  featureSet.toInstance(this.instanceHeader));
     }
 
     public void initializeClassifier() {
@@ -92,7 +103,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public Instances getInstanceHeader() {
         // TODO: 9/19/2016 Add logic to read an empty arff file to set the shceme of the arff file
-        return null;
+        BufferedReader reader = null;
+        Instances instances = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(getAssets().open("schema_file.arff")));
+            ArffLoader.ArffReader arff = new ArffLoader.ArffReader(reader);
+            instances = arff.getData();
+            instances.setClassIndex(instances.numAttributes() - 1);
+
+            Log.i(TAG, "Schema read successfully ->" + instances.toString());
+
+        } catch (FileNotFoundException e ) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return instances;
     }
 
     @Override

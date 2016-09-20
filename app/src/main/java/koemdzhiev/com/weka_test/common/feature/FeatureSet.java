@@ -18,10 +18,6 @@ public class FeatureSet extends Hashtable<String, Double> {
 
     private String activityLabel;
 
-    public FeatureSet(String activityLabel) {
-        this.activityLabel = activityLabel;
-    }
-
     public FeatureSet(double[] values, String[] attributes) {
         if ((values == null) || (attributes == null) || (values.length) != (attributes.length)) {
             throw new IllegalArgumentException("Invalid arguments to create a feature set");
@@ -90,6 +86,7 @@ public class FeatureSet extends Hashtable<String, Double> {
         if (instanceHeader != null) {
             instance = new DenseInstance(instanceHeader.numAttributes());
             instance.setDataset(instanceHeader);
+            instance.setClassValue(activityLabel);
 
             Enumeration e = instanceHeader.enumerateAttributes();
             while (e.hasMoreElements()) {
@@ -109,9 +106,18 @@ public class FeatureSet extends Hashtable<String, Double> {
                         instance.setValue(attr, 0);
                     }
                 }
+
             }
         }
 
         return instance;
+    }
+
+    public void setActivityLabel(String activityLabel) {
+        this.activityLabel = activityLabel;
+    }
+
+    public FeatureSet(String activityLabel) {
+        this.activityLabel = activityLabel;
     }
 }

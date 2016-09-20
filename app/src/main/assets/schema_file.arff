@@ -1,0 +1,16 @@
+@RELATION HRS
+
+@ATTRIBUTE accX__var	REAL
+@ATTRIBUTE accY__var 	REAL
+@ATTRIBUTE accZ__var 	REAL
+@ATTRIBUTE accX__mean	REAL
+@ATTRIBUTE accY__mean	REAL
+@ATTRIBUTE accZ__mean	REAL
+@ATTRIBUTE accX__stdv	REAL
+@ATTRIBUTE accY__stdv	REAL
+@ATTRIBUTE accZ__stdv	REAL
+@ATTRIBUTE class 	{walking,laying,running}
+
+@DATA
+
+
