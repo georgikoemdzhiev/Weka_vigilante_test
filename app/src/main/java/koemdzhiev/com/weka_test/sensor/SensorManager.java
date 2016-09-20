@@ -11,6 +11,7 @@ import weka.core.Instances;
 
 /**
  * Created by Georgi on 9/19/2016.
+ * CURRENTLY not used
  */
 public class SensorManager implements Observer {
     // 5 Seconds
