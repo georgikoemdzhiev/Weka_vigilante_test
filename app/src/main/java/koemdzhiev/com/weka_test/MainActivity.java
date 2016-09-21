@@ -113,9 +113,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             Log.i(TAG, "Schema read successfully ->" + instances.toString());
 
-        } catch (FileNotFoundException e ) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e ) {
             e.printStackTrace();
         }
 
