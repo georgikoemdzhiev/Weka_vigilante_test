@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import koemdzhiev.com.weka_test.common.data.Point;
 import koemdzhiev.com.weka_test.common.data.TimeSeries;
 import koemdzhiev.com.weka_test.common.data.TimeWindow;
 import koemdzhiev.com.weka_test.common.feature.FeatureSet;
+import koemdzhiev.com.weka_test.utils.FileUtils;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
@@ -102,23 +104,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public Instances getInstanceHeader() {
-        // TODO: 9/19/2016 Add logic to read an empty arff file to set the shceme of the arff file
-        BufferedReader reader = null;
-        Instances instances = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(getAssets().open("schema_file.arff")));
-            ArffLoader.ArffReader arff = new ArffLoader.ArffReader(reader);
-            instances = arff.getData();
-            instances.setClassIndex(instances.numAttributes() - 1);
-
-            Log.i(TAG, "Schema read successfully ->" + instances.toString());
-
-        } catch (IOException e ) {
-            e.printStackTrace();
-        }
-
+        // read an empty arff file to set the shceme of the arff file
+        Instances instances = FileUtils.readARFFFileSchema(this);
         return instances;
     }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {

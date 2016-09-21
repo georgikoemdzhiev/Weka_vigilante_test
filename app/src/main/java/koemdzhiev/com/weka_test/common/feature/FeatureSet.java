@@ -18,6 +18,10 @@ public class FeatureSet extends Hashtable<String, Double> {
 
     private String activityLabel;
 
+    public FeatureSet(String activityLabel) {
+        this.activityLabel = activityLabel;
+    }
+
     public FeatureSet(double[] values, String[] attributes) {
         if ((values == null) || (attributes == null) || (values.length) != (attributes.length)) {
             throw new IllegalArgumentException("Invalid arguments to create a feature set");
@@ -62,10 +66,6 @@ public class FeatureSet extends Hashtable<String, Double> {
             Double value = featureSet.get(name);
             this.put(name, value);
         }
-    }
-
-    public String getActivityLabel() {
-        return activityLabel;
     }
 
     public Double getValue(String attName) {
@@ -117,7 +117,8 @@ public class FeatureSet extends Hashtable<String, Double> {
         this.activityLabel = activityLabel;
     }
 
-    public FeatureSet(String activityLabel) {
-        this.activityLabel = activityLabel;
+    public String getActivityLabel() {
+        return activityLabel;
     }
+
 }
