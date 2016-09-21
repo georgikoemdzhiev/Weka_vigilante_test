@@ -4,17 +4,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
 import koemdzhiev.com.weka_test.common.data.Point;
 import koemdzhiev.com.weka_test.common.data.TimeSeries;
 import koemdzhiev.com.weka_test.common.data.TimeWindow;
@@ -22,11 +22,9 @@ import koemdzhiev.com.weka_test.common.feature.FeatureSet;
 import koemdzhiev.com.weka_test.utils.FileUtils;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
-import weka.core.converters.ArffLoader;
-import weka.core.converters.ConverterUtils;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
     // 5 Seconds
     private static final long WINDOW_LENGTH = 5000;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -44,15 +42,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private Instances instanceHeader;
 
+    /**
+     * Object to store the dataSet which will be stored to a file on the devices storage
+     */
+    private Instances dataSet;
+
     private TimeSeries accXSeries, accYSeries, accZSeries;
     private TimeWindow window;
+    // UI
+    @BindView(R.id.saveBtn)
+    Button mSaveButton;
+    @BindView(R.id.clearBtn)
+    Button mClearButton;
+    @BindView(R.id.startRecBtn)
+    Button mStartButton;
+    @BindView(R.id.stopRecBtn)
+    Button mStopButton;
 
     //...//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        mStopButton.setOnClickListener(this);
+        mClearButton.setOnClickListener(this);
+        mStartButton.setOnClickListener(this);
+        mSaveButton.setOnClickListener(this);
 
+        // This will change in the feature - the user must specify the activity...
         this.activityLabel = "walking";
         this.accXSeries = new TimeSeries(activityLabel, "accX_");
         this.accYSeries = new TimeSeries(activityLabel, "accY_");
@@ -63,18 +81,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         this.instanceHeader = getInstanceHeader();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sensorManager.unregisterListener(this, accSensor);
+        dataSet = instanceHeader;
     }
 
     private void resetTimeSeries() {
@@ -84,13 +91,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void issueTimeWindow(TimeWindow window) {
-        // TODO: 9/19/2016 extract features
+        // extract features, convert the featureSet to weka instance object and add it to a list
         //Create a FeatureSet instance and use its toInstance method to create weka instance
-        // use the classifier to classify the instance
-        Log.d(TAG,"issueTimeWindow method called" + String.format("XarraySize: %d YarraySize: %d ZarraySize: %d",accXSeries.size(),accYSeries.size(),accZSeries.size()));
+        // use the classifier to classify the instance (TODO)
+        Log.d(TAG, "issueTimeWindow method called" + String.format("XarraySize: %d YarraySize: %d ZarraySize: %d", accXSeries.size(), accYSeries.size(), accZSeries.size()));
         FeatureSet featureSet = new FeatureSet(window);
         featureSet.setActivityLabel(activityLabel);
-        Log.d(TAG,"FeatureSet.toInstance: " +  featureSet.toInstance(this.instanceHeader));
+        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toInstance(this.instanceHeader));
+
+        dataSet.add(featureSet.toInstance(this.instanceHeader));
     }
 
     public void initializeClassifier() {
@@ -148,5 +157,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.saveBtn:
+                FileUtils.saveCurrentDataToArffFile(this, dataSet, activityLabel);
+                dataSet.clear();
+                break;
+            case R.id.clearBtn:
+                dataSet.clear();
+                Toast.makeText(this, "Data cleared!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.startRecBtn:
+                // start recording logic
+                sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_GAME);
+                Toast.makeText(this, "Recording", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.stopRecBtn:
+                // stop recording logic
+                sensorManager.unregisterListener(this, accSensor);
+                Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

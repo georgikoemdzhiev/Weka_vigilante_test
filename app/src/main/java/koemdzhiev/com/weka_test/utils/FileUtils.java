@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
@@ -21,11 +23,11 @@ import weka.core.converters.ArffLoader;
 
 public class FileUtils {
 
-    public static void saveCurrentDataToArffFile(Instances instances) {
+    public static void saveCurrentDataToArffFile(Context context, Instances instances, String activityLabel) {
 
         File path = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(path, "/" + "activity_recognition" + System.currentTimeMillis() + ".arff");
+        File file = new File(path, "/" + "HAR_" + activityLabel + "_" + System.currentTimeMillis() + ".arff");
 
         BufferedWriter writer = null;
         try {
@@ -33,8 +35,10 @@ public class FileUtils {
             writer.write(instances.toString());
             writer.flush();
             writer.close();
+            Toast.makeText(context, "File Saved!", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
         }
 
         Log.d(FileUtils.class.getSimpleName(), "DATA SAVED TO A ARFF file");
@@ -52,7 +56,7 @@ public class FileUtils {
 
             Log.i(FileUtils.class.getSimpleName(), "Schema read successfully ->" + instances.toString());
 
-        } catch (IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return instances;
