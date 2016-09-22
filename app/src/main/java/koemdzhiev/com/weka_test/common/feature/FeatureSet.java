@@ -1,5 +1,7 @@
 package koemdzhiev.com.weka_test.common.feature;
 
+import android.util.Log;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
@@ -16,6 +18,7 @@ import weka.core.Instances;
  */
 public class FeatureSet extends Hashtable<String, Double> {
 
+    private static final String TAG = FeatureSet.class.getSimpleName();
     private String activityLabel;
 
     public FeatureSet(String activityLabel) {
@@ -34,7 +37,7 @@ public class FeatureSet extends Hashtable<String, Double> {
     /**
      * Creates a new feature set by extracting all features from the given time window
      */
-    public FeatureSet(TimeWindow window) {
+    public FeatureSet(TimeWindow window) throws Exception {
         if (window == null) {
             throw new IllegalArgumentException("Cannot extract features from a null time window!");
         }
@@ -50,13 +53,18 @@ public class FeatureSet extends Hashtable<String, Double> {
             double var = sta.computeVariance();
 
             /** Compute some structural features */
-            // TODO: 9/19/2016 Add Logic to compute structoral features as well
+            StructuralFeatureExtractor str = new StructuralFeatureExtractor(series, activityLabel);
+            int degree = 3;
+            double[] coef = str.computeLeastSquares(degree);
 
             /** Add them to the feature set */
             String id = series.getId();
             this.put(id + "_mean", mean);
             this.put(id + "_stdv", stdv);
             this.put(id + "_var", var);
+            this.put(id + "_coef1", coef[0]);
+            this.put(id + "_coef2", coef[1]);
+            this.put(id + "_coef3", coef[2]);
 
         }
     }
@@ -109,7 +117,7 @@ public class FeatureSet extends Hashtable<String, Double> {
 
             }
         }
-
+//        Log.e(TAG,String.format("Coef1 = %.20f, Coef2 = %.20f, Coef3 = %.50f",this.getValue("accX__coef1"),this.getValue("accX__coef2"),this.getValue("accX__coef3")));
         return instance;
     }
 

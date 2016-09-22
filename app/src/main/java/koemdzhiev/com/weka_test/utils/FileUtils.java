@@ -54,7 +54,7 @@ public class FileUtils {
             instances = arff.getData();
             instances.setClassIndex(instances.numAttributes() - 1);
 
-            Log.i(FileUtils.class.getSimpleName(), "Schema read successfully ->" + instances.toString());
+//            Log.i(FileUtils.class.getSimpleName(), "Schema read successfully ->" + instances.toString());
 
         } catch (IOException e) {
             e.printStackTrace();

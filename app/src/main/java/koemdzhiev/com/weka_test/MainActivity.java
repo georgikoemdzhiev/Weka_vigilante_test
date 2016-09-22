@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSaveButton.setOnClickListener(this);
 
         // This will change in the feature - the user must specify the activity...
-        this.activityLabel = "walking";
+        this.activityLabel = "waling";
         this.accXSeries = new TimeSeries(activityLabel, "accX_");
         this.accYSeries = new TimeSeries(activityLabel, "accY_");
         this.accZSeries = new TimeSeries(activityLabel, "accZ_");
@@ -95,9 +95,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Create a FeatureSet instance and use its toInstance method to create weka instance
         // use the classifier to classify the instance (TODO)
         Log.d(TAG, "issueTimeWindow method called" + String.format("XarraySize: %d YarraySize: %d ZarraySize: %d", accXSeries.size(), accYSeries.size(), accZSeries.size()));
-        FeatureSet featureSet = new FeatureSet(window);
+        FeatureSet featureSet = null;
+        try {
+            featureSet = new FeatureSet(window);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         featureSet.setActivityLabel(activityLabel);
-        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toInstance(this.instanceHeader));
+//        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toInstance(this.instanceHeader));
+        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toString());
 
         dataSet.add(featureSet.toInstance(this.instanceHeader));
     }
@@ -172,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
             case R.id.startRecBtn:
                 // start recording logic
-                sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_GAME);
+                sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 Toast.makeText(this, "Recording", Toast.LENGTH_SHORT).show();
                 break;
 

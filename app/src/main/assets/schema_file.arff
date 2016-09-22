@@ -9,7 +9,17 @@
 @ATTRIBUTE accX__stdv	REAL
 @ATTRIBUTE accY__stdv	REAL
 @ATTRIBUTE accZ__stdv	REAL
-@ATTRIBUTE class 	{walking,laying,running}
+@ATTRIBUTE accX__coef1	REAL
+@ATTRIBUTE accY__coef1	REAL
+@ATTRIBUTE accZ__coef1	REAL
+@ATTRIBUTE accX__coef2	REAL
+@ATTRIBUTE accY__coef2	REAL
+@ATTRIBUTE accZ__coef2	REAL
+@ATTRIBUTE accX__coef3	REAL
+@ATTRIBUTE accY__coef3	REAL
+@ATTRIBUTE accZ__coef3	REAL
+
+@ATTRIBUTE class {walking,laying,running}
 
 @DATA
 
