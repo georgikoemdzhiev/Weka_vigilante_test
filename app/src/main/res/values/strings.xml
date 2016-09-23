@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Weka_test</string>
+    <string name="activityType">Set Activity</string>
 </resources>

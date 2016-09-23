@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Button mStartButton;
     @BindView(R.id.stopRecBtn)
     Button mStopButton;
+    @BindView(R.id.currentActivity)
+    TextView mActivityTypeView;
 
     //...//
     @Override
@@ -69,13 +73,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mClearButton.setOnClickListener(this);
         mStartButton.setOnClickListener(this);
         mSaveButton.setOnClickListener(this);
+        mActivityTypeView.setOnClickListener(this);
 
-        // This will change in the feature - the user must specify the activity...
-        this.activityLabel = "waling";
-        this.accXSeries = new TimeSeries(activityLabel, "accX_");
-        this.accYSeries = new TimeSeries(activityLabel, "accY_");
-        this.accZSeries = new TimeSeries(activityLabel, "accZ_");
-        this.window = new TimeWindow(activityLabel);
+        // Set the default activity to walking
+        this.activityLabel = "walking";
+        setUpTimeWindowAndTimeSeries();
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -84,10 +86,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         dataSet = instanceHeader;
     }
 
+    private void setUpTimeWindowAndTimeSeries() {
+        this.accXSeries = new TimeSeries(activityLabel, "accX_");
+        this.accYSeries = new TimeSeries(activityLabel, "accY_");
+        this.accZSeries = new TimeSeries(activityLabel, "accZ_");
+        this.window = new TimeWindow(activityLabel);
+    }
+
     private void resetTimeSeries() {
         this.accXSeries.clear();
         this.accYSeries.clear();
         this.accZSeries.clear();
+        this.window.clear();
     }
 
     public void issueTimeWindow(TimeWindow window) {
@@ -187,6 +197,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sensorManager.unregisterListener(this, accSensor);
                 Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.currentActivity:
+                showSetActivityDialog();
+                break;
         }
+    }
+
+    private void showSetActivityDialog() {
+        MaterialDialog materialDialog = new MaterialDialog.Builder(this)
+                .title(R.string.activityType)
+                .items(R.array.items)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        MainActivity.this.activityLabel = text.toString();
+                        mActivityTypeView.setText(text);
+                    }
+                })
+                .show();
     }
 }
