@@ -30,6 +30,10 @@ public class StatisticalFeatureExtractor extends FeatureExtractor {
         return featureSet;
     }
 
+    private double getMean() {
+        return mean;
+    }
+
     public void recomputeFeatures(TimeSeries series) {
         this.series = series;
         computeFeatures();

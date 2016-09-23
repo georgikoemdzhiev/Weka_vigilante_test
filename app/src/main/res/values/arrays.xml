@@ -4,5 +4,6 @@
         <item>walking</item>
         <item>running</item>
         <item>laying</item>
+        <item>cycling</item>
     </string-array>
 </resources>

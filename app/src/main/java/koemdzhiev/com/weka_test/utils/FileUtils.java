@@ -22,11 +22,11 @@ import weka.core.converters.ArffLoader;
  */
 
 public class FileUtils {
+    private static final String DIRECTORY_HAR = "HAR";
 
     public static void saveCurrentDataToArffFile(Context context, Instances instances, String activityLabel) {
 
-        File path = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS);
+        File path = Environment.getExternalStoragePublicDirectory(DIRECTORY_HAR);
         File file = new File(path, "/" + "HAR_" + activityLabel + "_" + System.currentTimeMillis() + ".arff");
 
         BufferedWriter writer = null;

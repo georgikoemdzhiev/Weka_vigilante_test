@@ -51,6 +51,8 @@ public class FeatureSet extends Hashtable<String, Double> {
             double mean = sta.computeMean();
             double stdv = sta.computeSTDV();
             double var = sta.computeVariance();
+            double rms = sta.computeRMS();
+            double mad = sta.computeMAD();
 
             /** Compute some structural features */
             StructuralFeatureExtractor str = new StructuralFeatureExtractor(series, activityLabel);
@@ -61,6 +63,8 @@ public class FeatureSet extends Hashtable<String, Double> {
             String id = series.getId();
             this.put(id + "_mean", mean);
             this.put(id + "_stdv", stdv);
+            this.put(id + "_rms", rms);
+            this.put(id + "_mad", mad);
             this.put(id + "_var", var);
             this.put(id + "_coef1", coef[0]);
             this.put(id + "_coef2", coef[1]);
@@ -117,7 +121,6 @@ public class FeatureSet extends Hashtable<String, Double> {
 
             }
         }
-//        Log.e(TAG,String.format("Coef1 = %.20f, Coef2 = %.20f, Coef3 = %.50f",this.getValue("accX__coef1"),this.getValue("accX__coef2"),this.getValue("accX__coef3")));
         return instance;
     }
 

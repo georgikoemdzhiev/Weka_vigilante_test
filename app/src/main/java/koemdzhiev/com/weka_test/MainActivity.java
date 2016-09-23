@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Button mStopButton;
     @BindView(R.id.currentActivity)
     TextView mActivityTypeView;
+    @BindView(R.id.numberOfInstances)
+    TextView mNumberOfInstancesView;
 
     //...//
     @Override
@@ -112,10 +114,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             e.printStackTrace();
         }
         featureSet.setActivityLabel(activityLabel);
-//        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toInstance(this.instanceHeader));
-        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toString());
+        Log.d(TAG, "FeatureSet.toString: " + featureSet.toString());
+        Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toInstance(this.instanceHeader));
 
         dataSet.add(featureSet.toInstance(this.instanceHeader));
+
+        //set the numberOfInstances view to the current dataSet size
+        mNumberOfInstancesView.setText(dataSet.size()+"");
     }
 
     public void initializeClassifier() {

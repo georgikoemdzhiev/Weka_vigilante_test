@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
             android:text="Save" />
 
         <Button
@@ -36,7 +37,9 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
             android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
             android:text="Clear" />
     </LinearLayout>
 
@@ -56,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
             android:text="Start" />
 
         <Button
@@ -63,7 +67,9 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
             android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
             android:text="Stop" />
     </LinearLayout>
 
@@ -72,16 +78,19 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/recodringButtonContainer"
         android:layout_centerHorizontal="true"
-        android:text="Start or Stop Activity recording" />
+        android:text="Start or Stop Activity recording"
+        android:textColor="@color/semiGrey" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/controlButtonContainer"
         android:layout_centerHorizontal="true"
-        android:text="Current DataSet controls" />
+        android:text="Current DataSet controls"
+        android:textColor="@color/semiGrey" />
 
     <LinearLayout
+        android:id="@+id/activityContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -103,6 +112,34 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:text="walking"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/numOfInstancesContainer"
+        android:layout_below="@+id/activityContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/numberOfInstancesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="numberOfInstances:" />
+
+        <TextView
+            android:id="@+id/numberOfInstances"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:text="0"
             android:textAllCaps="true" />
     </LinearLayout>
 
