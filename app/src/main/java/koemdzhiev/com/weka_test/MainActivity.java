@@ -4,14 +4,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final String TAG = MainActivity.class.getSimpleName();
     private long windowBegTime = -1;
     private String activityLabel;
+    private String userName = "DEFAULT";
     private SensorManager sensorManager;
     private Sensor accSensor;
     /**
@@ -60,8 +64,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Button mStartButton;
     @BindView(R.id.stopRecBtn)
     Button mStopButton;
+    @BindView(R.id.user)
+    Button mUserBtn;
     @BindView(R.id.currentActivity)
-    TextView mActivityTypeView;
+    Button mActivityTypeView;
     @BindView(R.id.numberOfInstances)
     TextView mNumberOfInstancesView;
 
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mStartButton.setOnClickListener(this);
         mSaveButton.setOnClickListener(this);
         mActivityTypeView.setOnClickListener(this);
+        mUserBtn.setOnClickListener(this);
 
         // Set the default activity to walking
         this.activityLabel = "walking";
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         dataSet.add(featureSet.toInstance(this.instanceHeader));
 
         //set the numberOfInstances view to the current dataSet size
-        mNumberOfInstancesView.setText(dataSet.size()+"");
+        mNumberOfInstancesView.setText(dataSet.size() + "");
     }
 
     public void initializeClassifier() {
@@ -184,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.saveBtn:
-                FileUtils.saveCurrentDataToArffFile(this, dataSet, activityLabel);
+                FileUtils.saveCurrentDataToArffFile(this, dataSet, activityLabel, userName);
                 dataSet.clear();
                 break;
             case R.id.clearBtn:
@@ -205,11 +212,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             case R.id.currentActivity:
                 showSetActivityDialog();
                 break;
+            case R.id.user:
+                showSetUserNameDialog();
+                break;
         }
     }
 
+    private void showSetUserNameDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.user_name_title)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        userName = input.toString().trim();
+                        mUserBtn.setText(userName);
+                    }
+                })
+                .positiveText(R.string.dialog_positive_text)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.hide();
+                    }
+                })
+                .show();
+    }
+
     private void showSetActivityDialog() {
-        MaterialDialog materialDialog = new MaterialDialog.Builder(this)
+        new MaterialDialog.Builder(this)
                 .title(R.string.activityType)
                 .items(R.array.items)
                 .itemsCallback(new MaterialDialog.ListCallback() {
