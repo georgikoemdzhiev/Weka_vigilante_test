@@ -196,11 +196,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
             case R.id.clearBtn:
                 dataSet.clear();
+                mNumberOfInstancesView.setText("0");
                 Toast.makeText(this, "Data cleared!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.startRecBtn:
                 // start recording logic
-                sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+                sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_GAME);
                 Toast.makeText(this, "Recording", Toast.LENGTH_SHORT).show();
                 break;
 

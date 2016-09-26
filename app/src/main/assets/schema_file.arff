@@ -25,7 +25,7 @@
 @ATTRIBUTE accY__coef3	REAL
 @ATTRIBUTE accZ__coef3	REAL
 
-@ATTRIBUTE class {walking,laying,running,cycling}
+@ATTRIBUTE class {walking,laying,running,cycling, ascending, descending }
 
 @DATA
 

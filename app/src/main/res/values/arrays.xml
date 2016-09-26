@@ -5,5 +5,7 @@
         <item>running</item>
         <item>laying</item>
         <item>cycling</item>
+        <item>ascending</item>
+        <item>descending</item>
     </string-array>
 </resources>
