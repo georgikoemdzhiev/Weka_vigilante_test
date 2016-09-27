@@ -12,17 +12,11 @@ public class StructuralFeatureExtractor extends FeatureExtractor {
         super(series, activityLabel);
     }
 
-    public FeatureSet computeFeatures(int degree) {
-        double[] features = new double[0];
-        try {
-            features = computeLeastSquares(degree + 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public FeatureSet computeFeatures(int degree) throws Exception {
+        double[]  features = computeLeastSquares(degree + 1);
         int i = 0;
         for (double f : features) {
             featureSet.put("COEF_" + degree + "^" + i + "_" + series.getId(), f);
-
             i++;
         }
 
