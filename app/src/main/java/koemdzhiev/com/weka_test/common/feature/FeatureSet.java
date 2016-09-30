@@ -98,7 +98,9 @@ public class FeatureSet extends Hashtable<String, Double> {
         if (instanceHeader != null) {
             instance = new DenseInstance(instanceHeader.numAttributes());
             instance.setDataset(instanceHeader);
-            instance.setClassValue(activityLabel);
+
+//            instance.setClassValue(activityLabel);
+            instance.setClassMissing();
 
             Enumeration e = instanceHeader.enumerateAttributes();
             while (e.hasMoreElements()) {

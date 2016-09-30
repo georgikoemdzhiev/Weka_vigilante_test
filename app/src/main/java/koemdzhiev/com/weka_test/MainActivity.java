@@ -1,5 +1,6 @@
 package koemdzhiev.com.weka_test;
 
+import android.content.res.AssetManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,12 +11,24 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -26,6 +39,7 @@ import koemdzhiev.com.weka_test.common.data.TimeWindow;
 import koemdzhiev.com.weka_test.common.feature.FeatureSet;
 import koemdzhiev.com.weka_test.utils.FileUtils;
 import weka.classifiers.Classifier;
+import weka.core.Instance;
 import weka.core.Instances;
 
 
@@ -70,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Button mActivityTypeView;
     @BindView(R.id.numberOfInstances)
     TextView mNumberOfInstancesView;
+    @BindView(R.id.classifedActivity)
+    ListView mClassifiedActivity;
+    private ArrayList<String> classifiedActivities = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     //...//
     @Override
@@ -84,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mActivityTypeView.setOnClickListener(this);
         mUserBtn.setOnClickListener(this);
 
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, classifiedActivities);
+        mClassifiedActivity.setAdapter(adapter);
         // Set the default activity to walking
         this.activityLabel = "walking";
         setUpTimeWindowAndTimeSeries();
@@ -91,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        this.instanceHeader = getInstanceHeader();
+        initializeClassifier();
         dataSet = instanceHeader;
     }
 
@@ -123,8 +144,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         featureSet.setActivityLabel(activityLabel);
         Log.d(TAG, "FeatureSet.toString: " + featureSet.toString());
         Log.d(TAG, "FeatureSet.toInstance: " + featureSet.toInstance(this.instanceHeader));
-
-        dataSet.add(featureSet.toInstance(this.instanceHeader));
+        double[] clasification;
+        Instance instance = featureSet.toInstance(this.instanceHeader);
+        try {
+            clasification = classifier.distributionForInstance(instance);
+            double classifiedClass = classifier.classifyInstance(instance);
+            adapter.add("Classified:" + classifiedClass);
+            Log.d(TAG, Arrays.toString(clasification));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dataSet.add(instance);
 
         //set the numberOfInstances view to the current dataSet size
         mNumberOfInstancesView.setText(dataSet.size() + "");
@@ -133,10 +163,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void initializeClassifier() {
         instanceHeader = getInstanceHeader();
         classifier = getClassifier();
+//        Log.d(TAG,"Classifier after deserialization: " + classifier.toString());
     }
 
     private Classifier getClassifier() {
-        // TODO: 9/19/2016 Add logic to make a network call to download the trained offline model/classifier
+        // Add logic to make a network call to download the trained offline model/classifier
+        String filename = "multilayerPerceptron.data";
+        ObjectInputStream objectStream = null;
+        Object obj = null;
+        try {
+            objectStream = new ObjectInputStream(getAssets().open(filename));
+            obj = objectStream.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//        Log.e(TAG, obj.getClass() + "" + obj.toString());
+
+        if (obj instanceof Classifier) {
+            Log.e(TAG, " obj is of class Classifier");
+            return (Classifier) obj;
+        }
+
         return null;
     }
 
@@ -198,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 dataSet.clear();
                 mNumberOfInstancesView.setText("0");
                 Toast.makeText(this, "Data cleared!", Toast.LENGTH_SHORT).show();
+                adapter.clear();
                 break;
             case R.id.startRecBtn:
                 // start recording logic
