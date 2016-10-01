@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private Classifier getClassifier() {
         // Add logic to make a network call to download the trained offline model/classifier
-        String filename = "multilayerPerceptron.data";
+        String filename = "RandomForest.data";
         ObjectInputStream objectStream = null;
         Object obj = null;
         try {
