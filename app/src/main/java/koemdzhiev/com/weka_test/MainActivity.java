@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // extract features, convert the featureSet to weka instance object and add it to a list
         //Create a FeatureSet instance and use its toInstance method to create weka instance
         // use the classifier to classify the instance (TODO)
-        Log.d(TAG, "issueTimeWindow method called" + String.format("XarraySize: %d YarraySize: %d ZarraySize: %d", accXSeries.size(), accYSeries.size(), accZSeries.size()));
+        Log.d(TAG, "issueTimeWindow method called" + String.format("XarraySize: %d YarraySize: %d ZarraySize: %d MarraySize: %d",
+                accXSeries.size(), accYSeries.size(), accZSeries.size(), accMSeries.size()));
         FeatureSet featureSet = null;
         try {
             featureSet = new FeatureSet(window);
