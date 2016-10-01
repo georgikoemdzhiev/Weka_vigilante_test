@@ -3,27 +3,35 @@
 @ATTRIBUTE accX__mean	REAL
 @ATTRIBUTE accY__mean 	REAL
 @ATTRIBUTE accZ__mean	REAL
+@ATTRIBUTE accM__mean	REAL
 @ATTRIBUTE accX__stdv	REAL
 @ATTRIBUTE accY__stdv	REAL
 @ATTRIBUTE accZ__stdv	REAL
+@ATTRIBUTE accM__stdv	REAL
 @ATTRIBUTE accX__rms	REAL
 @ATTRIBUTE accY__rms	REAL
 @ATTRIBUTE accZ__rms	REAL
+@ATTRIBUTE accM__rms	REAL
 @ATTRIBUTE accX__mad	REAL
 @ATTRIBUTE accY__mad	REAL
 @ATTRIBUTE accZ__mad	REAL
+@ATTRIBUTE accM__mad	REAL
 @ATTRIBUTE accX__var	REAL
 @ATTRIBUTE accY__var	REAL
 @ATTRIBUTE accZ__var	REAL
+@ATTRIBUTE accM__var	REAL
 @ATTRIBUTE accX__coef1	REAL
 @ATTRIBUTE accY__coef1	REAL
 @ATTRIBUTE accZ__coef1	REAL
+@ATTRIBUTE accM__coef1	REAL
 @ATTRIBUTE accX__coef2	REAL
 @ATTRIBUTE accY__coef2	REAL
 @ATTRIBUTE accZ__coef2	REAL
+@ATTRIBUTE accM__coef2	REAL
 @ATTRIBUTE accX__coef3	REAL
 @ATTRIBUTE accY__coef3	REAL
 @ATTRIBUTE accZ__coef3	REAL
+@ATTRIBUTE accM__coef3	REAL
 
 @ATTRIBUTE class {walking,laying,running,cycling, ascending, descending }
 

@@ -31,7 +31,7 @@ import weka.core.Instances;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
     // 5 Seconds
-    private static final long WINDOW_LENGTH = 5000;
+    private static final long WINDOW_LENGTH = 3000;
     private static final String TAG = MainActivity.class.getSimpleName();
     private long windowBegTime = -1;
     private String activityLabel;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private Instances dataSet;
 
-    private TimeSeries accXSeries, accYSeries, accZSeries;
+    private TimeSeries accXSeries, accYSeries, accZSeries, accMSeries;
     private TimeWindow window;
     // UI
     @BindView(R.id.saveBtn)
@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.accXSeries = new TimeSeries(activityLabel, "accX_");
         this.accYSeries = new TimeSeries(activityLabel, "accY_");
         this.accZSeries = new TimeSeries(activityLabel, "accZ_");
+        this.accMSeries = new TimeSeries(activityLabel, "accM_");
         this.window = new TimeWindow(activityLabel);
     }
 
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.accXSeries.clear();
         this.accYSeries.clear();
         this.accZSeries.clear();
+        this.accMSeries.clear();
         this.window.clear();
     }
 
@@ -167,12 +169,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         accXSeries.addPoint(new Point(event.timestamp, linear_acc[0]));
         accYSeries.addPoint(new Point(event.timestamp, linear_acc[1]));
         accZSeries.addPoint(new Point(event.timestamp, linear_acc[2]));
+        accMSeries.addPoint(new Point(event.timestamp, calculateMagnitude(linear_acc[0], linear_acc[1], linear_acc[2])));
 
         if (System.currentTimeMillis() - windowBegTime > WINDOW_LENGTH) {
             if (windowBegTime > 0) {
                 window.addTimeSeries(accXSeries);
                 window.addTimeSeries(accYSeries);
                 window.addTimeSeries(accZSeries);
+                window.addTimeSeries(accMSeries);
 
                 issueTimeWindow(window);
                 resetTimeSeries();
@@ -180,6 +184,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             windowBegTime = System.currentTimeMillis();
         }
+    }
+
+    private double calculateMagnitude(double x, double y, double z) {
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
     }
 
     @Override
