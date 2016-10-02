@@ -3,9 +3,7 @@
     <string-array name="items">
         <item>walking</item>
         <item>running</item>
-        <item>standing</item>
-        <item>sitting</item>
-        <item>laying</item>
+        <item>static</item>
         <item>cycling</item>
         <item>ascending</item>
         <item>descending</item>
