@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="koemdzhiev.com.weka_test.MainActivity">
+    tools:context="koemdzhiev.com.har_data_collector.MainActivity">
 
 
     <LinearLayout
@@ -97,18 +97,18 @@
 
         <Button
             android:id="@+id/currentActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="walking"
-            android:textAllCaps="true"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:textAllCaps="true" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/userContainer"
-        android:layout_below="@id/activityContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activityContainer">
 
         <TextView
             android:id="@+id/userLabel"
@@ -121,18 +121,18 @@
 
         <Button
             android:id="@+id/user"
-            android:layout_marginLeft="10dp"
-            android:text="DEFAULT"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:layout_marginLeft="10dp"
+            android:text="DEFAULT" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:id="@+id/numOfInstancesContainer"
-        android:layout_below="@+id/userContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userContainer"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/numberOfInstancesLabel"

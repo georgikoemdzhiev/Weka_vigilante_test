@@ -1,8 +1,8 @@
-package koemdzhiev.com.weka_test;
+package koemdzhiev.com.har_data_collector;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.

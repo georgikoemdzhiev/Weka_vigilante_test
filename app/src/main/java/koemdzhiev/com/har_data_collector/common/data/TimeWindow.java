@@ -1,8 +1,8 @@
-package koemdzhiev.com.weka_test.common.data;
+package koemdzhiev.com.har_data_collector.common.data;
 
 import java.util.Hashtable;
 
-import koemdzhiev.com.weka_test.common.feature.FeatureSet;
+import koemdzhiev.com.har_data_collector.common.feature.FeatureSet;
 
 /**
  * Created by Georgi on 9/19/2016.

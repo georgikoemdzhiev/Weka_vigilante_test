@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"> HAR data collector</string>
+    <string name="app_name">HAR Data collector</string>
     <string name="activityType">Set Activity</string>
     <string name="input_hint">Type in your username</string>
     <string name="user_name_title">Set user name</string>

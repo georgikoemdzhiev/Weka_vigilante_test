@@ -1,4 +1,4 @@
-package koemdzhiev.com.weka_test.utils;
+package koemdzhiev.com.har_data_collector.utils;
 
 import android.content.Context;
 import android.os.Environment;
@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;

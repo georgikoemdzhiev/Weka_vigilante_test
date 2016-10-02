@@ -1,12 +1,12 @@
-package koemdzhiev.com.weka_test;
+package koemdzhiev.com.har_data_collector;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -18,43 +18,20 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
-import koemdzhiev.com.weka_test.common.data.Point;
-import koemdzhiev.com.weka_test.common.data.TimeSeries;
-import koemdzhiev.com.weka_test.common.data.TimeWindow;
-import koemdzhiev.com.weka_test.common.feature.FeatureSet;
-import koemdzhiev.com.weka_test.utils.FileUtils;
+import koemdzhiev.com.har_data_collector.common.data.Point;
+import koemdzhiev.com.har_data_collector.common.data.TimeSeries;
+import koemdzhiev.com.har_data_collector.common.data.TimeWindow;
+import koemdzhiev.com.har_data_collector.common.feature.FeatureSet;
+import koemdzhiev.com.har_data_collector.utils.FileUtils;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
     // 5 Seconds
-    private static final long WINDOW_LENGTH = 3000;
+    private static final long WINDOW_LENGTH = 5000;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private long windowBegTime = -1;
-    private String activityLabel;
-    private String userName = "DEFAULT";
-    private SensorManager sensorManager;
-    private Sensor accSensor;
-    /**
-     * A classification model trained in the server
-     */
-    private Classifier classifier;
-
-    /**
-     * The data schema read from an empty ARFF file
-     */
-    private Instances instanceHeader;
-
-    /**
-     * Object to store the dataSet which will be stored to a file on the devices storage
-     */
-    private Instances dataSet;
-
-    private TimeSeries accXSeries, accYSeries, accZSeries, accMSeries;
-    private TimeWindow window;
     // UI
     @BindView(R.id.saveBtn)
     Button mSaveButton;
@@ -70,6 +47,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Button mActivityTypeView;
     @BindView(R.id.numberOfInstances)
     TextView mNumberOfInstancesView;
+    private long windowBegTime = -1;
+    private String activityLabel;
+    private String userName = "DEFAULT";
+    private SensorManager sensorManager;
+    private Sensor accSensor;
+    /**
+     * A classification model trained in the server
+     */
+    private Classifier classifier;
+    /**
+     * The data schema read from an empty ARFF file
+     */
+    private Instances instanceHeader;
+    /**
+     * Object to store the dataSet which will be stored to a file on the devices storage
+     */
+    private Instances dataSet;
+    private TimeSeries accXSeries, accYSeries, accZSeries, accMSeries;
+    private TimeWindow window;
 
     //...//
     @Override
