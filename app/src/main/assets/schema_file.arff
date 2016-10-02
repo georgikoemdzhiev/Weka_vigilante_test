@@ -33,7 +33,7 @@
 @ATTRIBUTE accZ__coef3	REAL
 @ATTRIBUTE accM__coef3	REAL
 
-@ATTRIBUTE class {walking,laying,running,cycling, ascending, descending }
+@ATTRIBUTE class {walking,laying,running,standing,cycling,ascending,descending }
 
 @DATA
 
