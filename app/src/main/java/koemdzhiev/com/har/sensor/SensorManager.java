@@ -1,11 +1,11 @@
-package koemdzhiev.com.har_data_collector.sensor;
+package koemdzhiev.com.har.sensor;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import koemdzhiev.com.har_data_collector.common.data.Point;
-import koemdzhiev.com.har_data_collector.common.data.TimeSeries;
-import koemdzhiev.com.har_data_collector.common.data.TimeWindow;
+import koemdzhiev.com.har.common.data.Point;
+import koemdzhiev.com.har.common.data.TimeSeries;
+import koemdzhiev.com.har.common.data.TimeWindow;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
 

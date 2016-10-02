@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_data_collector.common.data;
+package koemdzhiev.com.har.common.data;
 
 /**
  * Created by Georgi on 9/19/2016.

@@ -1,6 +1,6 @@
-package koemdzhiev.com.har_data_collector.common.feature;
+package koemdzhiev.com.har.common.feature;
 
-import koemdzhiev.com.har_data_collector.common.data.TimeSeries;
+import koemdzhiev.com.har.common.data.TimeSeries;
 
 /**
  * Created by Georgi on 9/21/2016.

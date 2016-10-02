@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="koemdzhiev.com.har_data_collector.MainActivity">
+    tools:context="koemdzhiev.com.har.MainActivity">
 
 
     <LinearLayout

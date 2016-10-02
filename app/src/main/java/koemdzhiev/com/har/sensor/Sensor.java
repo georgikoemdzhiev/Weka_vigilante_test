@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_data_collector.sensor;
+package koemdzhiev.com.har.sensor;
 
 import java.util.Observable;
 

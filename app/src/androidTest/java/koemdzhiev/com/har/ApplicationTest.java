@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_data_collector;
+package koemdzhiev.com.har;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

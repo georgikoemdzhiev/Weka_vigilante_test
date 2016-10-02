@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_data_collector;
+package koemdzhiev.com.har;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -19,11 +19,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import koemdzhiev.com.har_data_collector.common.data.Point;
-import koemdzhiev.com.har_data_collector.common.data.TimeSeries;
-import koemdzhiev.com.har_data_collector.common.data.TimeWindow;
-import koemdzhiev.com.har_data_collector.common.feature.FeatureSet;
-import koemdzhiev.com.har_data_collector.utils.FileUtils;
+import koemdzhiev.com.har.common.data.Point;
+import koemdzhiev.com.har.common.data.TimeSeries;
+import koemdzhiev.com.har.common.data.TimeWindow;
+import koemdzhiev.com.har.common.feature.FeatureSet;
+import koemdzhiev.com.har.utils.FileUtils;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
 

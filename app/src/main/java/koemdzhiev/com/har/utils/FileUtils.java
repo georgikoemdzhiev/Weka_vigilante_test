@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_data_collector.utils;
+package koemdzhiev.com.har.utils;
 
 import android.content.Context;
 import android.os.Environment;
