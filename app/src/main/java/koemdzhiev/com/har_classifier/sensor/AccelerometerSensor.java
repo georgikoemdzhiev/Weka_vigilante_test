@@ -1,4 +1,4 @@
-package koemdzhiev.com.weka_test.sensor;
+package koemdzhiev.com.har_classifier.sensor;
 
 /**
  * Created by Georgi on 9/19/2016.

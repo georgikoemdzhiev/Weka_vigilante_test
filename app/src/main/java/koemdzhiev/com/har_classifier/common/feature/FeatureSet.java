@@ -1,13 +1,11 @@
-package koemdzhiev.com.weka_test.common.feature;
-
-import android.util.Log;
+package koemdzhiev.com.har_classifier.common.feature;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
 
-import koemdzhiev.com.weka_test.common.data.TimeSeries;
-import koemdzhiev.com.weka_test.common.data.TimeWindow;
+import koemdzhiev.com.har_classifier.common.data.TimeSeries;
+import koemdzhiev.com.har_classifier.common.data.TimeWindow;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
@@ -126,12 +124,12 @@ public class FeatureSet extends Hashtable<String, Double> {
         return instance;
     }
 
-    public void setActivityLabel(String activityLabel) {
-        this.activityLabel = activityLabel;
-    }
-
     public String getActivityLabel() {
         return activityLabel;
+    }
+
+    public void setActivityLabel(String activityLabel) {
+        this.activityLabel = activityLabel;
     }
 
 }

@@ -1,4 +1,4 @@
-package koemdzhiev.com.weka_test.common.data;
+package koemdzhiev.com.har_classifier.common.data;
 
 import java.util.ArrayList;
 

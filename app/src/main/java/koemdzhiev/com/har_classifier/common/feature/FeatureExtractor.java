@@ -1,6 +1,6 @@
-package koemdzhiev.com.weka_test.common.feature;
+package koemdzhiev.com.har_classifier.common.feature;
 
-import koemdzhiev.com.weka_test.common.data.TimeSeries;
+import koemdzhiev.com.har_classifier.common.data.TimeSeries;
 
 /**
  * Created by Georgi on 9/19/2016.

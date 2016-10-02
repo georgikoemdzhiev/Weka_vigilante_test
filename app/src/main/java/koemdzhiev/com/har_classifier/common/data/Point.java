@@ -1,4 +1,4 @@
-package koemdzhiev.com.weka_test.common.data;
+package koemdzhiev.com.har_classifier.common.data;
 
 /**
  * Created by Georgi on 9/19/2016.

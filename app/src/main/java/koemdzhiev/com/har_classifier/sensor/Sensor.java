@@ -1,4 +1,4 @@
-package koemdzhiev.com.weka_test.sensor;
+package koemdzhiev.com.har_classifier.sensor;
 
 import java.util.Observable;
 
