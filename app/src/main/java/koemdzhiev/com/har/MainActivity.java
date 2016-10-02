@@ -1,10 +1,12 @@
 package koemdzhiev.com.har;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private String userName = "DEFAULT";
     private SensorManager sensorManager;
     private Sensor accSensor;
+    private PowerManager pm;
+    private PowerManager.WakeLock mWakeLock;
     /**
      * A classification model trained in the server
      */
@@ -86,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Accelerometer_sensor_tag");
+        mWakeLock.acquire();
 
         this.instanceHeader = getInstanceHeader();
         dataSet = instanceHeader;
@@ -207,12 +214,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             case R.id.startRecBtn:
                 // start recording logic
                 sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_GAME);
+                mWakeLock.acquire();
                 Toast.makeText(this, "Recording", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.stopRecBtn:
                 // stop recording logic
                 sensorManager.unregisterListener(this, accSensor);
+                if (mWakeLock.isHeld())
+                    mWakeLock.release();
                 Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.currentActivity:
