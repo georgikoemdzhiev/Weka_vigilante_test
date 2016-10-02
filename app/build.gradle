@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "koemdzhiev.com.weka_test"
+        applicationId "koemdzhiev.com.har.data_collector"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
