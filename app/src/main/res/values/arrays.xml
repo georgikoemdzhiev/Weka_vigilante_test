@@ -3,6 +3,7 @@
     <string-array name="items">
         <item>walking</item>
         <item>running</item>
+        <item>standing</item>
         <item>laying</item>
         <item>cycling</item>
         <item>ascending</item>
