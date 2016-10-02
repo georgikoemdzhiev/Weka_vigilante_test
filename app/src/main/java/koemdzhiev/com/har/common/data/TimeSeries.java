@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_classifier.common.data;
+package koemdzhiev.com.har.common.data;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
-package koemdzhiev.com.har_classifier.common.feature;
+package koemdzhiev.com.har.common.feature;
 
 import java.util.Collections;
 
-import koemdzhiev.com.har_classifier.common.data.Point;
-import koemdzhiev.com.har_classifier.common.data.TimeSeries;
+import koemdzhiev.com.har.common.data.Point;
+import koemdzhiev.com.har.common.data.TimeSeries;
 
 /**
  * Created by Georgi on 9/19/2016.

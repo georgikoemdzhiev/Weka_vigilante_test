@@ -1,11 +1,11 @@
-package koemdzhiev.com.har_classifier.common.feature;
+package koemdzhiev.com.har.common.feature;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
 
-import koemdzhiev.com.har_classifier.common.data.TimeSeries;
-import koemdzhiev.com.har_classifier.common.data.TimeWindow;
+import koemdzhiev.com.har.common.data.TimeSeries;
+import koemdzhiev.com.har.common.data.TimeWindow;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;

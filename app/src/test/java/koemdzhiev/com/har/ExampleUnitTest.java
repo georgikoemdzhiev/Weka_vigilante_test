@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_classifier;
+package koemdzhiev.com.har;
 
 import org.junit.Test;
 

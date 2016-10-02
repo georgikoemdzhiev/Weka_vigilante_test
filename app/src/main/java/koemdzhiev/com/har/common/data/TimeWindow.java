@@ -1,8 +1,8 @@
-package koemdzhiev.com.har_classifier.common.data;
+package koemdzhiev.com.har.common.data;
 
 import java.util.Hashtable;
 
-import koemdzhiev.com.har_classifier.common.feature.FeatureSet;
+import koemdzhiev.com.har.common.feature.FeatureSet;
 
 /**
  * Created by Georgi on 9/19/2016.

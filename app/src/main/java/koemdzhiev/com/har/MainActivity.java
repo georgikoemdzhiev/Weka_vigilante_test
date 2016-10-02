@@ -1,4 +1,4 @@
-package koemdzhiev.com.har_classifier;
+package koemdzhiev.com.har;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -26,11 +26,11 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import koemdzhiev.com.har_classifier.common.data.Point;
-import koemdzhiev.com.har_classifier.common.data.TimeSeries;
-import koemdzhiev.com.har_classifier.common.data.TimeWindow;
-import koemdzhiev.com.har_classifier.common.feature.FeatureSet;
-import koemdzhiev.com.har_classifier.utils.FileUtils;
+import koemdzhiev.com.har.common.data.Point;
+import koemdzhiev.com.har.common.data.TimeSeries;
+import koemdzhiev.com.har.common.data.TimeWindow;
+import koemdzhiev.com.har.common.feature.FeatureSet;
+import koemdzhiev.com.har.utils.FileUtils;
 import weka.classifiers.Classifier;
 import weka.core.Instance;
 import weka.core.Instances;
