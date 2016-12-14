@@ -27,6 +27,8 @@ public class FileUtils {
                                                  String activityLabel, String userName) {
         String formattedUserName = userName.replace(" ", "_");
         File path = Environment.getExternalStoragePublicDirectory(DIRECTORY_HAR);
+        // have the object build the directory structure, if needed.
+        path.mkdirs();
         File file = new File(path, "/" + "HAR_" + activityLabel + "_" + formattedUserName + "_" +
                 System.currentTimeMillis() + ".arff");
 
